@@ -1,0 +1,219 @@
+@import 'tailwindcss';
+
+/* ── Design tokens ─────────────────────────────────────────────────────────
+   Blush + cream base, berry for "can't make it", sage for "everyone's free",
+   champagne gold for the little sparkles. Instrument Serif brings the
+   elegance, DM Sans keeps the UI clean and modern. */
+@theme {
+  --font-display: 'Instrument Serif', 'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'DM Sans Variable', 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-cream-50: #fffdfa;
+  --color-cream-100: #fcf7f1;
+  --color-cream-200: #f5ebdf;
+
+  --color-blush-50: #fff6f7;
+  --color-blush-100: #fdeaed;
+  --color-blush-200: #f9d6dc;
+  --color-blush-300: #f2b7c3;
+  --color-blush-400: #e892a6;
+
+  --color-berry-400: #d9718c;
+  --color-berry-500: #c04468;
+  --color-berry-600: #a8345a;
+  --color-berry-700: #86284a;
+
+  --color-plum-900: #2f1d27;
+  --color-plum-700: #5a3b4c;
+  --color-plum-500: #7a566a;
+  --color-plum-300: #c9b0bd;
+
+  --color-sage-100: #e5f0e8;
+  --color-sage-300: #b3d4bf;
+  --color-sage-500: #6aa688;
+  --color-sage-700: #3f7a5d;
+
+  --color-champagne-100: #faf0d8;
+  --color-champagne-300: #efd9a2;
+  --color-champagne-500: #c9a24f;
+  --color-champagne-700: #8a6a24;
+
+  --color-lilac-100: #ede7f6;
+  --color-lilac-600: #66548f;
+
+  --shadow-soft: 0 1px 0 rgb(255 255 255 / 0.9) inset, 0 20px 40px -28px rgb(134 40 74 / 0.4);
+  --shadow-lift: 0 1px 0 rgb(255 255 255 / 0.9) inset, 0 26px 50px -26px rgb(134 40 74 / 0.5);
+  --shadow-berry: 0 14px 28px -12px rgb(168 52 90 / 0.65);
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-pop: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-badge-in: badge-in 0.36s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-scale-in: scale-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-sheet-up: sheet-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-shake: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  --animate-draw: draw 0.7s 0.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-spin-slow: spin 0.9s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0.94);
+    }
+    55% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes badge-in {
+    from {
+      opacity: 0;
+      transform: scale(0) rotate(-45deg);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) rotate(0);
+    }
+  }
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes sheet-up {
+    from {
+      opacity: 0.6;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translateX(-1px);
+    }
+    20%,
+    80% {
+      transform: translateX(3px);
+    }
+    30%,
+    50%,
+    70% {
+      transform: translateX(-5px);
+    }
+    40%,
+    60% {
+      transform: translateX(5px);
+    }
+  }
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-7px) rotate(10deg);
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-cream-100);
+    color: var(--color-plum-900);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Soft blush + champagne glow, fixed behind everything. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(52rem 34rem at 8% -8%, rgb(249 214 220 / 0.7), transparent 62%),
+      radial-gradient(44rem 30rem at 102% 4%, rgb(239 217 162 / 0.32), transparent 60%),
+      radial-gradient(40rem 28rem at 50% 108%, rgb(249 214 220 / 0.45), transparent 60%);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.012em;
+  }
+
+  button,
+  [role='button'],
+  summary {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-blush-300);
+    color: var(--color-plum-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-berry-500);
+    outline-offset: 3px;
+    border-radius: 0.5rem;
+  }
+}
+
+/* Honour the "reduce motion" setting: keep everything, drop the movement. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
